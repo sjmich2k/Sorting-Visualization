@@ -11,18 +11,8 @@
     justify-content: center;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 50em;
-    /* background-color: blue; */
-}
-
 .window {
-    width: 45em;
+    width: calc(min(70vw, 1000px));
     height: 20em;
     
     display: flex;

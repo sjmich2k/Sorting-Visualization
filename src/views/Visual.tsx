@@ -1,10 +1,5 @@
 import React from 'react'
 import './_views.css'
-import Window from '../components/Window'
-
-export type Entry = {
-    value: number
-}
 
 interface WindowDimensions {
     width: number
@@ -21,11 +16,17 @@ export default function Visual() {
 
     // Get window dimensions
     React.useEffect(() => {
-        if (windowRef.current) {
-            const { width, height } = windowRef.current.getBoundingClientRect()
-            console.log(width, height)
-            setDimensions({ width, height })
+        const fetchDimensions = () => {
+            if (windowRef.current) {
+                const { width, height } = windowRef.current.getBoundingClientRect()
+                console.log(width, height)
+                setDimensions({ width, height })
+            }
         }
+        fetchDimensions()
+
+        window.addEventListener('resize', fetchDimensions)
+        return () => window.removeEventListener('resize', fetchDimensions)
     }, [windowRef])
 
     // Init array of size n
@@ -52,7 +53,7 @@ export default function Visual() {
     }
 
     return (
-        <div className='container'>
+        <React.Fragment>
             <div className='window' ref={windowRef}>
                 { array.map((value, index) => (
                     <div
@@ -73,7 +74,7 @@ export default function Visual() {
                 <div id='size-select' className='horizontal'>
                     <p id='n'>N = {n}</p>
                     <input
-                        type='range' min={10} max={100} value={n}
+                        type='range' min={10} max={200} value={n}   // TODO - make max proportional to window width
                         onChange={(e) => setN(parseInt(e.target.value))}
                     />
                 </div>
@@ -81,6 +82,6 @@ export default function Visual() {
                 <button onClick={shuffle}>Shuffle</button>
                 <button>Start</button>
             </div>
-        </div>
+        </React.Fragment>
     )
 }
