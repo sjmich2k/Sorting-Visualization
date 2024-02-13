@@ -1,0 +1,39 @@
+.horizontal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 50em;
+    /* background-color: blue; */
+}
+
+.window {
+    width: 45em;
+    height: 20em;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+#n {
+    width: 5em;
+}
+
+#config > * {
+    margin: 0.5em;
+}
