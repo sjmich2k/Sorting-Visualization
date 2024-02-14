@@ -16,7 +16,7 @@ export default function App() {
     const [n, setN] = React.useState(100)
     const [sort, setSort] = React.useState('selection')
 
-    const array = useArray(n)
+    const array = useArray(n, 50)
     const sortArray = { size: array.size, values: array.values, swap: array.swap }
 
     const onStart = () => {

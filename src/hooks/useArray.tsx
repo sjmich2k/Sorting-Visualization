@@ -1,8 +1,6 @@
 import React from 'react'
 
-const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
-
-export default function useArray(n: number) {
+export default function useArray(n: number, delay = 5) {
     const size = n
     const [values, setValues] = React.useState<number[]>([])
     const [colors, setColors] = React.useState<boolean[]>([])
@@ -21,13 +19,15 @@ export default function useArray(n: number) {
         setColors(col)
     }, [n])
 
+    // Wait function
+    const wait = () => new Promise(resolve => setTimeout(resolve, delay))
 
     // Swap elements with delay
-    const swap = async (i: number, j: number, delay=5) => {
+    const swap = async (i: number, j: number) => {
         colors[i] = true ; colors[j] = true
         setColors([...colors])
         const temp = values[i] ; values[i] = values[j] ; values[j] = temp
-        await wait(delay)
+        await wait()
         colors[i] = false ; colors[j] = false
         setValues([...values]) ; setColors([...colors])
     }
@@ -36,7 +36,7 @@ export default function useArray(n: number) {
     const shuffle = async () => {
         for (let i = 0; i < n; i++) {
             const j = Math.floor(Math.random() * n)
-            await swap(i, j, 0)
+            await swap(i, j)
         }
     }
 

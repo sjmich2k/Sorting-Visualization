@@ -27,7 +27,6 @@ export default function Array({ array }: ArrayProps) {
         const fetchDimensions = () => {
             if (windowRef.current) {
                 const { width, height } = windowRef.current.getBoundingClientRect()
-                console.log(width, height)
                 setDimensions({ width, height })
             }
         }
