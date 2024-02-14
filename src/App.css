@@ -7,3 +7,11 @@
     align-items: center;
     justify-content: center;
 }
+
+#n {
+    width: 5em;
+}
+
+#config > * {
+    margin: 0.5em;
+}
