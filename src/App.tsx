@@ -4,7 +4,12 @@ import useArray from './hooks/useArray'
 import './App.css'
 
 import selectionSort from './sorts/selection'
+import insertionSort from './sorts/insertion'
+import bubbleSort from './sorts/bubble'
 import quickSort from './sorts/quick'
+import bogoSort from './sorts/bogo'
+import yourSort from './sorts/your-sort'
+
 
 export interface Array {
     size: number,
@@ -24,8 +29,20 @@ export default function App() {
             case 'selection':
                 selectionSort(sortArray)
                 break
+            case 'insertion':
+                insertionSort(sortArray)
+                break
+            case 'bubble':
+                bubbleSort(sortArray)
+                break
             case 'quick':
                 quickSort(sortArray)
+                break
+            case 'bogo':
+                bogoSort(sortArray)
+                break
+            case 'your-sort':
+                yourSort(sortArray)
                 break
         }
     }
@@ -48,7 +65,11 @@ export default function App() {
 
                 <select value={sort} onChange={(e) => setSort(e.target.value)}>
                     <option value='selection'>Selection Sort</option>
+                    <option value='insertion'>Insertion Sort</option>
+                    <option value='bubble'>Bubble Sort</option>
                     <option value='quick'>Quick Sort</option>
+                    <option value='bogo'>Bogo Sort</option>
+                    <option value='your-sort'>Your Sort</option>
                 </select>
             </div>
         </div>
