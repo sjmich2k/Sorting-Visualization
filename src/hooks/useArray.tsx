@@ -2,7 +2,7 @@ import React from 'react'
 
 const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
-export function useArray(n: number) {
+export default function useArray(n: number) {
     const size = n
     const [values, setValues] = React.useState<number[]>([])
     const [colors, setColors] = React.useState<boolean[]>([])

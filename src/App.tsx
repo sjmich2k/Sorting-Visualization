@@ -1,11 +1,34 @@
 import React from 'react'
-import './App.css'
 import Array from './components/Array'
-import { useArray } from './hooks/useArray'
+import useArray from './hooks/useArray'
+import './App.css'
+
+import selectionSort from './sorts/selection'
+import quickSort from './sorts/quick'
+
+export interface Array {
+    size: number,
+    readonly values: number[],
+    swap: (i: number, j: number) => Promise<void>
+}
 
 export default function App() {
-    const [n, setN] = React.useState(20)
+    const [n, setN] = React.useState(100)
+    const [sort, setSort] = React.useState('selection')
+
     const array = useArray(n)
+    const sortArray = { size: array.size, values: array.values, swap: array.swap }
+
+    const onStart = () => {
+        switch (sort) {
+            case 'selection':
+                selectionSort(sortArray)
+                break
+            case 'quick':
+                quickSort(sortArray)
+                break
+        }
+    }
 
     return (
         <div className="App">
@@ -21,7 +44,12 @@ export default function App() {
                 </div>
 
                 <button onClick={() => array.shuffle()}>Shuffle</button>
-                <button>Start</button>
+                <button onClick={onStart}>Start</button>
+
+                <select value={sort} onChange={(e) => setSort(e.target.value)}>
+                    <option value='selection'>Selection Sort</option>
+                    <option value='quick'>Quick Sort</option>
+                </select>
             </div>
         </div>
     )
