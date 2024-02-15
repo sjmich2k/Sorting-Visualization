@@ -20,8 +20,9 @@ export interface Array {
 export default function App() {
     const [n, setN] = React.useState(100)
     const [sort, setSort] = React.useState('quick')
+    const [delay, setDelay] = React.useState(10)
 
-    const array = useArray(n, 1)
+    const array = useArray(n, delay)
     const sortArray = { size: array.size, get: array.get, swap: array.swap }
 
     const onStart = () => {
@@ -79,6 +80,14 @@ export default function App() {
                     <option value='bogo'>Bogo Sort</option>
                     <option value='your-sort'>Your Sort</option>
                 </select>
+
+                <div id='set-delay' className='horizontal'>
+                    <p id='delay'>d = {delay}ms</p>
+                    <input
+                        type='range' min={1} max={50} value={delay}
+                        onChange={(e) => setDelay(parseInt(e.target.value))}
+                    />
+                </div>
             </div>
         </div>
     )

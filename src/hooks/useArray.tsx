@@ -1,12 +1,14 @@
 import React from 'react'
 
-export default function useArray(n: number, delay = 5) {
+export default function useArray(n: number, delay = 10) {
     const size = n
     const [values, setValues] = React.useState<number[]>([])
     const [colors, setColors] = React.useState<boolean[]>([])
 
     const [accessCount, setAccessCount] = React.useState(0)
     const [swapCount, setSwapCount] = React.useState(0)
+
+    const delayRef = React.useRef(delay)
 
     // Initialize array
     React.useEffect(() => {
@@ -22,6 +24,11 @@ export default function useArray(n: number, delay = 5) {
         setColors(col)
     }, [n])
 
+    // Update delay
+    React.useEffect(() => {
+        delayRef.current = delay
+    }, [delay])
+
     // Reset counts
     const resetStats = () => {
         setAccessCount(0)
@@ -29,7 +36,7 @@ export default function useArray(n: number, delay = 5) {
     }
 
     // Wait function
-    const wait = () => new Promise(resolve => setTimeout(resolve, delay))
+    const wait = () => new Promise(resolve => setTimeout(resolve, delayRef.current))
 
     // Get element with delay
     const get = async (i: number, stats=true) => {

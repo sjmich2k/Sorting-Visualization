@@ -8,8 +8,9 @@
     justify-content: center;
 }
 
-#n {
-    width: 5em;
+#n, #delay {
+    width: 6em;
+    text-align: center;
 }
 
 #config > * {
