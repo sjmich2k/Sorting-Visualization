@@ -15,3 +15,8 @@
 #config > * {
     margin: 0.5em;
 }
+
+.stats {
+    width: 20em;
+    text-align: center;
+}

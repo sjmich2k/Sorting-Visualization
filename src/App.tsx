@@ -13,18 +13,20 @@ import yourSort from './sorts/your-sort'
 
 export interface Array {
     size: number,
-    readonly values: number[],
+    get: (i: number) => Promise<number>,
     swap: (i: number, j: number) => Promise<void>
 }
 
 export default function App() {
     const [n, setN] = React.useState(100)
-    const [sort, setSort] = React.useState('selection')
+    const [sort, setSort] = React.useState('quick')
 
-    const array = useArray(n, 5)
-    const sortArray = { size: array.size, values: array.values, swap: array.swap }
+    const array = useArray(n, 1)
+    const sortArray = { size: array.size, get: array.get, swap: array.swap }
 
     const onStart = () => {
+        array.resetStats()
+
         switch (sort) {
             case 'selection':
                 selectionSort(sortArray)
@@ -48,14 +50,20 @@ export default function App() {
     }
 
     return (
-        <div className="App">
+        <div className='App'>
+            <div className='horizontal'>
+                <p className='stats'>Array Access: { array.accessCount }</p>
+                <p>&nbsp; | &nbsp;</p>
+                <p className='stats'>Array Swaps: { array.swapCount }</p>
+            </div>
+
             <Array array={array} />
 
             <div id='config' className='horizontal'>
                 <div id='size-select' className='horizontal'>
                     <p id='n'>N = {n}</p>
                     <input
-                        type='range' min={10} max={200} value={n}   // TODO - make max proportional to window width
+                        type='range' min={5} max={200} value={n}   // TODO - make max proportional to window width
                         onChange={(e) => setN(parseInt(e.target.value))}
                     />
                 </div>
