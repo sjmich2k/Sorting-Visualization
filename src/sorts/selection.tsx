@@ -1,4 +1,9 @@
-import { Array } from '../App'
+
+interface Array {
+    size: number,
+    get: (i: number) => Promise<number>,
+    swap: (i: number, j: number) => Promise<void>
+}
 
 export default async function selectionSort(array: Array) {
     const n = array.size
