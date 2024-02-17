@@ -13,6 +13,5 @@ Main motivation is a bit of fun, to test my current level with React, and practi
 You can edit `/src/sorts/your-sort.tsx` and select "Your Sort" on the application to test your own sorting function!
 
 ### Next Steps
-- (optional) Use custom React context (instead of using custom hook in the main application) to keep track of the array. This will prevent the entire application from re-rendering every time the array updates.
 - Add custom code editor for visitors to make their own sorting functions with the given template in the editor.
 - Style the application.
