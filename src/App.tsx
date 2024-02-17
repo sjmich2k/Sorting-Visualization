@@ -26,72 +26,77 @@ export default function App() {
 
         switch (sort) {
             case 'selection':
-                selectionSort(sortArray)
-                break
+                selectionSort(sortArray); break
             case 'insertion':
-                insertionSort(sortArray)
-                break
+                insertionSort(sortArray); break
             case 'bubble':
-                bubbleSort(sortArray)
-                break
+                bubbleSort(sortArray); break
             case 'quick':
-                quickSort(sortArray)
-                break
+                quickSort(sortArray); break
             case 'heap':
-                heapSort(sortArray)
-                break
+                heapSort(sortArray); break
             case 'merge':
-                mergeSort(sortArray)
-                break
+                mergeSort(sortArray); break
             case 'bogo':
-                bogoSort(sortArray)
-                break
+                bogoSort(sortArray); break
             case 'your-sort':
-                yourSort(sortArray)
-                break
+                yourSort(sortArray); break
         }
     }
 
+    const StatsMemo = React.useMemo(() => (
+        <div className='horizontal'>
+            <p className='stats'>Array Access: { array.accessCount }</p>
+            <p>&nbsp; | &nbsp;</p>
+            <p className='stats'>Array Swaps: { array.swapCount }</p>
+        </div>
+    ), [array.accessCount, array.swapCount])
+
+    const SizeMemo = React.useMemo(() => (
+        <div id='size-select' className='horizontal'>
+            <p id='n'>N = {n}</p>
+            <input
+                type='range' min={5} max={200} value={n}   // TODO - make max proportional to window width
+                onChange={(e) => setN(parseInt(e.target.value))}
+            />
+        </div>
+    ), [n])
+
+    const SortMemo = React.useMemo(() => (
+        <select value={sort} onChange={(e) => setSort(e.target.value)}>
+            <option value='selection'>Selection Sort</option>
+            <option value='insertion'>Insertion Sort</option>
+            <option value='bubble'>Bubble Sort</option>
+            <option value='quick'>Quick Sort</option>
+            <option value='heap'>Heap Sort</option>
+            <option value='merge'>Merge Sort</option>
+            <option value='bogo'>Bogo Sort</option>
+            <option value='your-sort'>Your Sort</option>
+        </select>
+    ), [sort])
+
+    const DelayMemo = React.useMemo(() => (
+        <div id='set-delay' className='horizontal'>
+            <p id='delay'>d = {delay}ms</p>
+            <input
+                type='range' min={1} max={50} value={delay}
+                onChange={(e) => setDelay(parseInt(e.target.value))}
+            />
+        </div>
+    ), [delay])
+
     return (
         <div className='App'>
-            <div className='horizontal'>
-                <p className='stats'>Array Access: { array.accessCount }</p>
-                <p>&nbsp; | &nbsp;</p>
-                <p className='stats'>Array Swaps: { array.swapCount }</p>
-            </div>
+            { StatsMemo }
 
             <Array array={array} />
 
             <div id='config' className='horizontal'>
-                <div id='size-select' className='horizontal'>
-                    <p id='n'>N = {n}</p>
-                    <input
-                        type='range' min={5} max={200} value={n}   // TODO - make max proportional to window width
-                        onChange={(e) => setN(parseInt(e.target.value))}
-                    />
-                </div>
-
+                { SizeMemo }
                 <button onClick={() => array.shuffle()}>Shuffle</button>
                 <button onClick={onStart}>Start</button>
-
-                <select value={sort} onChange={(e) => setSort(e.target.value)}>
-                    <option value='selection'>Selection Sort</option>
-                    <option value='insertion'>Insertion Sort</option>
-                    <option value='bubble'>Bubble Sort</option>
-                    <option value='quick'>Quick Sort</option>
-                    <option value='heap'>Heap Sort</option>
-                    <option value='merge'>Merge Sort</option>
-                    <option value='bogo'>Bogo Sort</option>
-                    <option value='your-sort'>Your Sort</option>
-                </select>
-
-                <div id='set-delay' className='horizontal'>
-                    <p id='delay'>d = {delay}ms</p>
-                    <input
-                        type='range' min={1} max={50} value={delay}
-                        onChange={(e) => setDelay(parseInt(e.target.value))}
-                    />
-                </div>
+                { SortMemo }
+                { DelayMemo }
             </div>
         </div>
     )
