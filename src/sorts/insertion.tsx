@@ -2,6 +2,7 @@
 interface Array {
     size: number,
     get: (i: number) => Promise<number>,
+    set: (i: number, v: number) => Promise<void>,
     swap: (i: number, j: number) => Promise<void>
 }
 

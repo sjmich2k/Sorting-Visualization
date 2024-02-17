@@ -8,17 +8,18 @@ import insertionSort from './sorts/insertion'
 import bubbleSort from './sorts/bubble'
 import quickSort from './sorts/quick'
 import heapSort from './sorts/heap'
+import mergeSort from './sorts/merge'
 import bogoSort from './sorts/bogo'
 import yourSort from './sorts/your-sort'
 
 
 export default function App() {
-    const [n, setN] = React.useState(100)
+    const [n, setN] = React.useState(64)
     const [sort, setSort] = React.useState('quick')
     const [delay, setDelay] = React.useState(10)
 
     const array = useArray(n, delay)
-    const sortArray = { size: array.size, get: array.get, swap: array.swap }
+    const sortArray = { size: array.size, get: array.get, set: array.set, swap: array.swap }
 
     const onStart = () => {
         array.resetStats()
@@ -38,6 +39,9 @@ export default function App() {
                 break
             case 'heap':
                 heapSort(sortArray)
+                break
+            case 'merge':
+                mergeSort(sortArray)
                 break
             case 'bogo':
                 bogoSort(sortArray)
@@ -76,6 +80,7 @@ export default function App() {
                     <option value='bubble'>Bubble Sort</option>
                     <option value='quick'>Quick Sort</option>
                     <option value='heap'>Heap Sort</option>
+                    <option value='merge'>Merge Sort</option>
                     <option value='bogo'>Bogo Sort</option>
                     <option value='your-sort'>Your Sort</option>
                 </select>

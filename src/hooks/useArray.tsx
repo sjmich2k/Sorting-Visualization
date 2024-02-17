@@ -48,6 +48,16 @@ export default function useArray(n: number, delay = 10) {
         return values[i]
     }
 
+    // Update element with delay
+    const set = async (i: number, v: number, stats=true) => {
+        colors[i] = true; values[i] = v
+        setColors([...colors]); setValues([...values])
+        await wait()
+        colors[i] = false
+        setColors([...colors])
+        if (stats) setAccessCount(prev => prev + 1)
+    }
+
     // Swap elements with delay
     const swap = async (i: number, j: number, stats=true) => {
         colors[i] = true; colors[j] = true
@@ -70,5 +80,5 @@ export default function useArray(n: number, delay = 10) {
         }
     }
 
-    return { size, values, colors, get, swap, shuffle, accessCount, swapCount, resetStats }
+    return { size, values, colors, get, set, swap, shuffle, accessCount, swapCount, resetStats }
 }
